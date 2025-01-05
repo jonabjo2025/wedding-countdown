@@ -5,42 +5,81 @@
     <title>Wedding Countdown</title>
     <style>
       body {
-        font-family: sans-serif;
+        font-family: 'Dancing Script', cursive; /* Handwritten font */
         text-align: center;
         margin: 0;
         padding: 0;
+        color: #9cb0c1; /* Soft blue color */
+        background-color: #ffffff; /* White background */
       }
-      h1 {
-        margin-top: 20px;
-      }
+
       #countdown {
-        font-size: 2em;
-        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 60px; /* Space between time units */
+        margin-top: 50px; /* Space above the countdown */
+      }
+
+      .countdown-item {
+        text-align: center;
+      }
+
+      .time-value {
+        font-size: 3em; /* Larger font for the numbers */
+        font-weight: 400; /* Light weight for elegance */
+        color: #9cb0c1; /* Soft blue color */
+        text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.7); /* Subtle white shadow */
+      }
+
+      .time-label {
+        font-size: 1em; /* Smaller font for the labels */
+        font-style: italic; /* Slightly italic for handwritten feel */
+        color: #9cb0c1; /* Soft blue color */
+        text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.7); /* Subtle white shadow */
       }
     </style>
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <h1>Our Wedding Countdown</h1>
-    <div id="countdown"></div>
+    <div id="countdown">
+      <div class="countdown-item">
+        <div class="time-value" id="days">0</div>
+        <div class="time-label">days</div>
+      </div>
+      <div class="countdown-item">
+        <div class="time-value" id="hours">0</div>
+        <div class="time-label">hours</div>
+      </div>
+      <div class="countdown-item">
+        <div class="time-value" id="minutes">0</div>
+        <div class="time-label">minutes</div>
+      </div>
+    </div>
 
     <script>
       // Set the date and time for the wedding
       const weddingDate = new Date("May 17, 2025 14:00:00").getTime();
 
       // Update the countdown every 1 second
-      const x = setInterval(function() {
+      const x = setInterval(function () {
         const now = new Date().getTime();
         const distance = weddingDate - now;
 
-        // Time calculations for days, hours, minutes and seconds
-        const days    = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours   = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        // Time calculations for days, hours, and minutes
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        // Output the result in an element with id="countdown"
-        document.getElementById("countdown").innerHTML =
-          days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+        // Output the result in the respective elements
+        document.getElementById("days").textContent = days;
+        document.getElementById("hours").textContent = hours;
+        document.getElementById("minutes").textContent = minutes;
 
         // If the countdown is finished, display some text
         if (distance < 0) {
